@@ -117,3 +117,143 @@ class Human {
 
 let human1 = new Human("hieu");
 human1.showName(); //hieu
+
+
+//objetkey 
+const employees = {
+	boss: "Michael",
+	secretaty: "Pham",
+	sale: "Brian",
+	accoutant: "Mike",
+}
+const keys = Object.keys(employees);
+console.log("keys: ",keys);
+// keys:  
+// Array(4)
+// 0: "boss"
+// 1: "secretaty"
+// 2: "sale"D
+// 3: "accoutant"
+// length: 4
+
+
+
+//object values 
+
+const session = {
+	id: 1,
+	time: '03-June-2022',
+	device: "laptop",
+	browser: "chrome",
+
+};
+const values = Object.values(session);
+console.log("values: ",values);
+// (4) [1, '03-June-2022', 'laptop', 'chrome']
+// 0: 1
+// 1: "03-June-2022"
+// 2: "laptop"
+// 3: "chrome"
+// length: 4
+// [[Prototype]]: Array(0)
+
+//Strickmode 
+"use strict";
+function foo(){
+    var bar = 0;
+    return bar;
+}
+
+// Uncaught ReferenceError: bar is not defined
+bar = 1;
+
+
+function foo(){
+    "use strict";
+    // Uncaught ReferenceError: bar is not defined
+    bar = 0;
+    return bar;
+}
+
+// This will run normally
+bar = 1;
+
+
+//bind method 
+
+
+
+//aplly 
+const obj = {
+	firstName: "Ahihi",
+	lastName : "Ihaha",
+	
+	mMethod: function(firstName, lastName) {
+	var firstName = firstName || this.firstName
+	var lastName = lastName || this.lastName
+	console.log("Hello " + firstName + " " + lastName)
+		}
+	}
+	
+const obj1 = {
+firstName: "xxx" ,
+lastName : "yyy",
+};
+	
+	obj.mMethod() // Hello Ahihi Ihaha
+	
+	obj.mMethod.call(obj1) // Hello xxx yyy
+	
+	obj.mMethod.apply(obj1) // Hello xxx yyy
+	
+	obj.mMethod.call(obj1, "xxx", "yyy") // Hello xxx yyy
+	
+	obj.mMethod.apply(obj1, ["xxx", "yyy"]) // Hello xxx yyy
+	
+	
+
+//call , apply set this cho callback 
+function print() {
+	console.log(this.mVal)
+  }
+   
+const obJ = {
+	mVal: "lalala",
+   
+	mMethod: function(callback) {
+	   // truyền đối tượng hiện tại cho hàm phản hồi callback
+		callback.call(this)
+	  }
+  }
+   
+  obJ.mMethod(print) //sẽ in ra lalala
+
+  // mượn hàm 
+  function test(firstParam, secondParam, thirdParam){
+	var args = Array.apply(null, arguments);
+	
+	console.log(args);
+	
+	}
+	
+	test(1, 2, 3); // [1, 2, 3]
+
+
+//Mở rộng hàm
+var users = {
+    name: "XXX" ,
+    showName: function (){
+      console.log("My name is:" + this.name);
+    }
+}
+users.showName() // My name is XXX
+
+var oldShowName = user.showName.bind(users);
+users.showName = function(){  // ở đây ta thay đổi hàm showName bằng hàm mới
+     console.log("before show name");
+     oldShowName.call(this);  // giữ nguyên hàm cũ
+     console.log("after show name");
+
+}
+
+users.showName();
